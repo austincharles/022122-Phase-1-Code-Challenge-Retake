@@ -5,7 +5,6 @@ const movieShowtime = document.getElementById('showtime')
 const movieRuntime = document.getElementById('runtime')
 const movieDescription = document.getElementById('film-info')
 const ticketNum = document.getElementById('ticket-num')
-const convertedCapacity = parseInt(films.capacity, 10)
 
 fetch(URL)
     .then(resp => resp.json())
@@ -17,7 +16,9 @@ function renderMovieDetails(data) {
     movieShowtime.textContent = data.showtime
     movieRuntime.textContent = data.runtime
     movieDescription.textContent = data.description
-    ticketNum.innerText = convertedCapacity - films.tickets_sold
+
+    const convertedCapacity = parseInt(data.capacity, 10)
+    ticketNum.innerText = convertedCapacity - data.tickets_sold
 }
 
 const URL_2 = 'http://localhost:3000/films'
@@ -29,7 +30,7 @@ fetch(URL_2)
 
 function renderSideMenu(menu) {
     filmList.innerText = '',
-    menu.forEach(renderFilm)
+        menu.forEach(renderFilm)
 }
 
 function renderFilm(film) {
@@ -37,3 +38,15 @@ function renderFilm(film) {
     li.textContent = film.title
     filmList.append(li)
 }
+
+const button = document.querySelector('.ui.orange.button')
+button.addEventListener('click', () => {
+    if (ticketNum.innerText -= 0) {
+        const button = document.querySelector('.extra.content');
+        button.innerHTML = '<button>Sold Out</button>'
+    }
+    else {
+        const tickets_sold = films.tickets_sold - 1
+        const obj = { tickets_sold }
+    }
+})
