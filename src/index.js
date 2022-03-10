@@ -21,11 +21,19 @@ function renderMovieDetails(data) {
 }
 
 const URL_2 = 'http://localhost:3000/films'
+const filmList = document.getElementById('films')
 
 fetch(URL_2)
     .then(resp => resp.json())
     .then(renderSideMenu)
 
-function renderSideMenu() {
-    
+function renderSideMenu(menu) {
+    filmList.innerText = '',
+    menu.forEach(renderFilm)
+}
+
+function renderFilm(film) {
+    const li = document.createElement('li')
+    li.textContent = film.title
+    filmList.append(li)
 }
